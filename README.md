@@ -9,9 +9,9 @@ This project focuses on developing a digital version of tik-tac-toe 3x3, examini
 
 # 1.3. Student number and details
 
-Student number: 29
-Game: tik-tac-toe 3x3
-Config format: JSON
+Student number: 29.
+Game: tik-tac-toe 3x3.
+Config format: JSON.
 
 # 1.4. Details about technology, program language, and HW
 
