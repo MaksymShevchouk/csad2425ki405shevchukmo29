@@ -1,18 +1,37 @@
+# csad2425ki405shevchukmo29
+## Tik-Tac-Toe 3x3 Project
 
-# 1.1. Details about repo
+## Project Overview
+This repository contains the code and documentation for developing a 3x3 Tic-Tac-Toe game. The primary goal is to implement this game on the Arduino Uno microcontroller, allowing users to play directly on a microcontroller-based platform. 
 
-This repository is created for the storage of laboratory work related to the CSAD course. It will contain all the intermediate stages of development as well as completed labs.
+## Task Details
+This project involves multiple stages:
+- Design and implement the logic for a 3x3 Tic-Tac-Toe game.
+- Deploy the game on an Arduino Uno microcontroller.
+- Handle input/output using available hardware components.
+- Ensure the game runs efficiently and supports basic user interactions.
+- Set up the groundwork for further development and integration with additional hardware.
 
-# 1.2. Task details
+## Student Details
+| **Student Number** | **Student Name** | **Game**        | **Config Format** |
+|--------------------|------------------|-----------------|-------------------|
+| 29                  | Maksym Shevchuk  | Tic-Tac-Toe 3x3 | JSON              |
 
-This project focuses on developing a digital version of tik-tac-toe 3x3, examining the game's fundamental mechanics and implementation techniques. We aim to create an engaging and user-friendly experience by employing modern programming tools and languages. The game will feature an intuitive interface where two players can face off each other by placing their symbols 0 or X on a grid.
+## Technologies and Hardware
+### Technologies:
+- **Programming Language**: Python for microcontroller development.
+- **IDE/Development Environment**: PlatformIO or Arduino IDE.
+- **Version Control**: Git for version tracking and collaboration.
 
-# 1.3. Student number and details
+### Hardware:
+- **Microcontroller**: Arduino Uno.
+- **Output**: Client-Server page for representing game states.
+- **Power Supply**: 3.3V supply for Arduino Uno or USB power.
 
-Student number: 29.
-Game: tik-tac-toe 3x3.
-Config format: JSON.
+## New features
+- A script for the Node MCU, based on Arduino Uno, has been written
+- Developed a software client that communicates with the hardware via UART and exchanges basic messages
+- A prototype of the game has been created
 
-# 1.4. Details about technology, program language, and HW
-
-In this project, I will create a client-server architecture where an Arduino board serves as the server and a client application retrieves information from it. The Arduino will perform all required computations and send the processed results back to the client. Both the Arduino platform and the client application will be developed in C++, ensuring reliable performance and efficient communication between the two components.
+## Future Development:
+- Establish full communication between the game and hardware components to ensure seamless integration
