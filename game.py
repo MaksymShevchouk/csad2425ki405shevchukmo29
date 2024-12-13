@@ -46,7 +46,6 @@ class UARTCommunication:
                 return f"Error: {e}"
         return "Port not opened"
 
-
 def update_game_board(board, buttons):
     for i in range(3):
         for j in range(3):
