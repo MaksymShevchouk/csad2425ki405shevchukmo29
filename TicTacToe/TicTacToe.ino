@@ -1,12 +1,30 @@
+/**
+ * @file
+ * @brief Implementation of a Tic-Tac-Toe game for Arduino.
+ */
+
 #include <Arduino.h>
 #include <ArduinoJson.h>
 
+/// Size of the Tic-Tac-Toe board.
 const int BOARD_SIZE = 3;
+
+/// The Tic-Tac-Toe board, represented as a 2D array of characters.
 char board[BOARD_SIZE][BOARD_SIZE];
+
+/// Indicates the current player ('X' or 'O').
 char currentPlayer = 'X';
+
+/// Flag to determine if the game is over.
 bool gameOver = false;
+
+/// Current game mode (0: Player vs Player, 1: Player vs AI, 2: AI vs AI).
 int gameMode = 0;
 
+/**
+ * @brief Initializes the game board by setting all cells to empty (' ').
+ * Resets the game state and sets the starting player to 'X'.
+ */
 void initializeBoard() {
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
@@ -17,6 +35,12 @@ void initializeBoard() {
     gameOver = false;
 }
 
+/**
+ * @brief Sends a JSON message over the serial connection.
+ * 
+ * @param type Type of the message (e.g., "info", "error").
+ * @param message The message content.
+ */
 void sendJsonMessage(const char* type, const char* message) {
     StaticJsonDocument<200> doc;
     doc["type"] = type;
@@ -25,6 +49,9 @@ void sendJsonMessage(const char* type, const char* message) {
     Serial.println();
 }
 
+/**
+ * @brief Sends the current state of the board as a JSON object.
+ */
 void sendBoardState() {
     StaticJsonDocument<300> doc;
     doc["type"] = "board";
@@ -39,6 +66,11 @@ void sendBoardState() {
     Serial.println();
 }
 
+/**
+ * @brief Checks if the current player has won the game.
+ * 
+ * @return True if the current player has won, false otherwise.
+ */
 bool checkWin() {
     for (int i = 0; i < BOARD_SIZE; i++) {
         if (board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer) return true;
@@ -49,6 +81,11 @@ bool checkWin() {
     return false;
 }
 
+/**
+ * @brief Checks if the game is a draw (no moves left and no winner).
+ * 
+ * @return True if the game is a draw, false otherwise.
+ */
 bool checkDraw() {
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
@@ -58,6 +95,10 @@ bool checkDraw() {
     return true;
 }
 
+/**
+ * @brief Makes a random move for the AI player.
+ * Chooses an empty cell on the board.
+ */
 void aiMoveRandom() {
     while (true) {
         int row = random(0, BOARD_SIZE);
@@ -69,7 +110,10 @@ void aiMoveRandom() {
     }
 }
 
-
+/**
+ * @brief Handles the game loop for AI vs AI mode.
+ * Alternates moves between two AI players until the game ends.
+ */
 void handleAiVsAi() {
     while (!gameOver) {
         if (checkDraw()) {
@@ -89,11 +133,16 @@ void handleAiVsAi() {
         }
         currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';  // Switch players
         sendBoardState();  // Send the board state after each move
-
-        
     }
 }
 
+/**
+ * @brief Attempts to make a move for the current player.
+ * 
+ * @param row Row index of the move (0-based).
+ * @param col Column index of the move (0-based).
+ * @return True if the move was successful, false otherwise.
+ */
 bool makeMove(int row, int col) {
     if (row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE && board[row][col] == ' ' && !gameOver) {
         board[row][col] = currentPlayer;
@@ -112,12 +161,20 @@ bool makeMove(int row, int col) {
     return false;
 }
 
+/**
+ * @brief Arduino setup function.
+ * Initializes the game and sends a startup message.
+ */
 void setup() {
     Serial.begin(9600);
     initializeBoard();
     sendJsonMessage("info", "TicTacToe Game Started");
 }
 
+/**
+ * @brief Arduino loop function.
+ * Processes incoming commands and updates the game state.
+ */
 void loop() {
     if (Serial.available() > 0) {
         StaticJsonDocument<200> doc;
