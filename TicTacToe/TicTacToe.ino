@@ -69,6 +69,7 @@ void aiMoveRandom() {
     }
 }
 
+
 void handleAiVsAi() {
     while (!gameOver) {
         if (checkDraw()) {
